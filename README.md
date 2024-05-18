@@ -27,7 +27,7 @@ source $HOME/.bash_profile
 go version
 ```
 
-## Inıtıa Dosyaları İndirme ve Yükleme
+## Initia Dosyaları İndirme ve Yükleme
 ```
 cd $HOME
 rm -rf initia
