@@ -72,13 +72,15 @@ sudo tee /etc/systemd/system/initiad.service > /dev/null <<EOF
 [Unit]
 Description=Initia node
 After=network-online.target
+
 [Service]
 User=root
 WorkingDirectory=$HOME/.initia
 ExecStart=$(which initiad) start --home $HOME/.initia
 Restart=on-failure
-RestartSec=5
+RestartSec=3
 LimitNOFILE=65535
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -89,3 +91,35 @@ EOF
 sudo systemctl daemon-reload && sudo systemctl enable initiad
 sudo systemctl restart initiad && sudo journalctl -u initiad -f
 ```
+
+- Node nuzun bloğu ile ağın bloğu (https://scan.testnet.initia.xyz/initiation-1/blocks) eşitlendiğinde aşağıdaki işlemlere devam edebilirsiniz.
+
+## Cüzdan Oluşturma
+- Aşağıdaki kodda cüzdanismi yazan yeri silip cüzdanımıza hangi ismi vermek istiyorsak onu yazıyoruz ve kodu giriypruz. Gelen ekranda şifre belirleyip enterlayıp 2. bir defa şifreyi girdikten sonra gelen kelimeler ve cüzdan adresini MUTLAKA kaydediyoruz.
+```
+initiad keys add cüzdanismi
+```
+
+## Test Tokenı Almak
+- Daha önceden https://discord.gg/initia Discord kanalına girip faucet-verification kanalında onaylama yapmanız gerekiyor.
+- Test tokenı almak için https://faucet.testnet.initia.xyz/ siteye gidip cüzdan adresimizi yazıp submit yaptığımız zaman bizim discord ile cüzdan adresini bağlıyor ve fauceti yolluyor. Gelmesi 2-3 dakika sürebilir
+- Test tokenlarınızı https://scan.testnet.initia.xyz/ adresinde cüzdan adresinizi aratarak görebilirsiniz.
+
+## Validator Oluşturmak
+```
+initiad tx mstaking create-validator \
+--amount 1000000uinit \
+--pubkey $(initiad tendermint show-validator) \
+--moniker "Monikerismi" \
+--from wallet \
+--chain-id initiation-1 \
+--commission-rate 0.05 \
+--commission-max-rate 0.20 \
+--commission-max-change-rate 0.05 \
+--identity "Keybase ID" \
+--details "Ayrıntı" \
+--website "Website" \
+--fees 6000uinit
+```
+
+#Validator oluşturduktan sonra https://forms.gle/LtxqGcJPNYXwwkxP9 adresine gidip formu mutlaka 19 Mayıs 17:59'a kadar gönderin.
