@@ -36,6 +36,7 @@ cd initia
 git checkout v0.2.14
 make build
 make install
+initiad version
 ```
 
 ## Node Yükleme
