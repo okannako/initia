@@ -124,4 +124,17 @@ initiad tx mstaking create-validator \
 --fees 6000uinit
 ```
 
-#Validator oluşturduktan sonra https://forms.gle/LtxqGcJPNYXwwkxP9 adresine gidip formu mutlaka 19 Mayıs 17:59'a kadar gönderin.
+- Validator oluşturduktan sonra https://forms.gle/LtxqGcJPNYXwwkxP9 adresine gidip formu mutlaka 19 Mayıs 17:59'a kadar gönderin.
+
+## 19 Mayıs Güncellemesi
+```
+cd $HOME
+rm -rf initia
+git clone https://github.com/initia-labs/initia.git
+cd initia
+git checkout v0.2.15
+make build
+make install
+initiad version
+sudo systemctl restart initiad && sudo journalctl -u initiad -f
+```
